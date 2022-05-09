@@ -11,6 +11,7 @@ import com.testme.data.api.TodoServiceStub;
 
 public class TodoBusinessImplStubTest {
 
+	
 	@Test
 	public void retrieveTodosRelatedToSpringTest_usingAStub() {
 		
