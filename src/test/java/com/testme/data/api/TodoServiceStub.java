@@ -9,6 +9,14 @@ import java.util.List;
  */
 public class TodoServiceStub implements TodoService {
 
+	/*
+	 * Two main problems using Stubs:
+	 * 
+	 * 1) Dynamic conditions -
+	 * 2) Service Definition - 
+	 * 
+	 */
+	
 	public List<String> retrieveTodos(String user) {
 		return Arrays.asList("Learn Computer Science", 
 							 "Learn Algorithms", 
