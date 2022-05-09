@@ -13,8 +13,13 @@ public class TodoServiceStub implements TodoService {
 	 * Two main problems using Stubs:
 	 * 
 	 * 1) Dynamic conditions -
-	 * 2) Service Definition - 
+	 * 	when the method needs to return different values for testing, the code
+	 * 	starts to get large and difficult to maintain.
 	 * 
+	 * 2) Service Definition - 
+	 * 	if TodoService interface has more than one method, the TodoServiceStub needs
+	 *  to have the same methods initialized.
+	 *   
 	 */
 	
 	public List<String> retrieveTodos(String user) {
