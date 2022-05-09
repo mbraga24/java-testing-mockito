@@ -6,6 +6,6 @@ import java.util.List;
  * TodoService can be communicating to a database or an external 
  * interface.
  */
-public class TodoService {
+public interface TodoService {
 	public List<String> retrieveTodos(String user);
 }
