@@ -1,6 +1,9 @@
 package com.testme.business.impl;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -12,21 +15,22 @@ import org.junit.Test;
 import com.testme.data.api.TodoService;
 
 /*
- * Mocking is creating objects that simulate the behavior of real objects.
- * unlike stub tests, mocks can be dynamically created from code - at runtime.
- * Mocks offer more functionality than stubbing.
- * You can verify method calls and a lot more.
+ * Behavior Driven Development - BDD
+ * 
+ * https://en.wikipedia.org/wiki/Behavior-driven_development
+ * 
  */
-public class TodoBusinessImplMockTest {
+public class TodoBusinessImplBDDTest {
+	
+	/* 
+	 * Dynamically stubbing a method
+	 * Making the mock return a specific value on a specific method call.
+	 */
 	
 	@Test
-	public void retrieveTodosRelatedToSpringTest_usingMock() {
+	public void retrieveTodosRelatedToSpringTest_usingBDD() {
 		
-		/* 
-		 * Dynamically stubbing a method
-		 * Making the mock return a specific value on a specific method call.
-		 */
-		
+		// Given - setup 
 		TodoService todoServiceMock = mock(TodoService.class);
 		List<String> todos = Arrays.asList("Learn Computer Science", 
 				 "Learn Algorithms", 
@@ -39,25 +43,32 @@ public class TodoBusinessImplMockTest {
 				 "Build 40 HTML/CSS projects",
 				 "Build 3 Spring projects",
 				 "Build 4 Spring MVC projects");
-		when(todoServiceMock.retrieveTodos("John")).thenReturn(todos);
-		
+		given(todoServiceMock.retrieveTodos("John")).willReturn(todos);
+	
+		// When - actual method call
 		TodoBusinessImpl todoBusinessImpl = new TodoBusinessImpl(todoServiceMock);
 		List<String> filteredTodos = todoBusinessImpl.retrieveTodosRelatedToSpring("John");
 		
-		assertEquals(4, filteredTodos.size());
+		// Then - asserts
+		assertThat(filteredTodos.size(), is(4));
+		// ===> .is() method is part of the hamcrest matchers
 	}
 	
 	@Test
 	public void retrieveTodosRelatedToSpringTest_returnEmptyList() {
 		
+		// Given - setup
 		TodoService todoServiceMock = mock(TodoService.class);
 		List<String> todos = Arrays.asList();
-		when(todoServiceMock.retrieveTodos("Alex")).thenReturn(todos);
+		given(todoServiceMock.retrieveTodos("Alex")).willReturn(todos);
 		
+		// When - actual method call
 		TodoBusinessImpl todoBusinessImpl = new TodoBusinessImpl(todoServiceMock);
 		List<String> filteredTodos = todoBusinessImpl.retrieveTodosRelatedToSpring("Alex");
 		
-		assertEquals(0, filteredTodos.size());
+		// Then - asserts
+		assertThat(filteredTodos.size(), is(0));
+		// ===> .is() method is part of the hamcrest matchers
 	}
 
 }
