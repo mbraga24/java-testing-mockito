@@ -23,7 +23,6 @@ public class TodoBusinessImplMockTest {
 	public void retrieveTodosRelatedToSpringTest_usingMock() {
 		
 		TodoService todoServiceMock = mock(TodoService.class);
-		
 		List<String> todos = Arrays.asList("Learn Computer Science", 
 				 "Learn Algorithms", 
 				 "Learn Spring", 
@@ -35,11 +34,9 @@ public class TodoBusinessImplMockTest {
 				 "Build 40 HTML/CSS projects",
 				 "Build 3 Spring projects",
 				 "Build 4 Spring MVC projects");
-		
 		when(todoServiceMock.retrieveTodos("John")).thenReturn(todos);
 		
 		TodoBusinessImpl todoBusinessImpl = new TodoBusinessImpl(todoServiceMock);
-		
 		List<String> filteredTodos = todoBusinessImpl.retrieveTodosRelatedToSpring("John");
 		
 		assertEquals(4, filteredTodos.size());
@@ -49,13 +46,10 @@ public class TodoBusinessImplMockTest {
 	public void retrieveTodosRelatedToSpringTest_returnEmptyList() {
 		
 		TodoService todoServiceMock = mock(TodoService.class);
-		
 		List<String> todos = Arrays.asList();
-		
 		when(todoServiceMock.retrieveTodos("Alex")).thenReturn(todos);
 		
 		TodoBusinessImpl todoBusinessImpl = new TodoBusinessImpl(todoServiceMock);
-		
 		List<String> filteredTodos = todoBusinessImpl.retrieveTodosRelatedToSpring("Alex");
 		
 		assertEquals(0, filteredTodos.size());
