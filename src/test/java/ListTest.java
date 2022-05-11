@@ -53,5 +53,14 @@ public class ListTest {
 		
 		listMock.get(0);
 	}
+	
+	@Test(expected = RuntimeException.class)
+	public void mockList_MixUp() {
+		List listMock = mock(List.class);
+		
+		when(listMock.subList(anyInt(), 5)).thenThrow(new RuntimeException("An error occurred."));
+	
+		listMock.get(0);
+	}
 
 }
