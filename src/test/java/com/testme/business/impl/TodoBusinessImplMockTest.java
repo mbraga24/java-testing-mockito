@@ -22,6 +22,9 @@ public class TodoBusinessImplMockTest {
 	@Test
 	public void retrieveTodosRelatedToSpringTest_usingMock() {
 		
+		// Dynamically stubbing a method
+		// Making the mock return a specific value on a specific method call.
+		
 		TodoService todoServiceMock = mock(TodoService.class);
 		List<String> todos = Arrays.asList("Learn Computer Science", 
 				 "Learn Algorithms", 
@@ -44,6 +47,9 @@ public class TodoBusinessImplMockTest {
 	
 	@Test
 	public void retrieveTodosRelatedToSpringTest_returnEmptyList() {
+		
+		// Dynamically stubbing a method
+		// Making the mock return a specific value on a specific method call.
 		
 		TodoService todoServiceMock = mock(TodoService.class);
 		List<String> todos = Arrays.asList();
