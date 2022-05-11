@@ -13,7 +13,7 @@ import com.testme.data.api.TodoService;
 
 /*
  * Mocking is creating objects that simulate the behavior of real objects.
- * unlike stubs, mocks can be dynamically created from code - at runtime.
+ * unlike stub tests, mocks can be dynamically created from code - at runtime.
  * Mocks offer more functionality than stubbing.
  * You can verify method calls and a lot more.
  */
