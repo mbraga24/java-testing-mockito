@@ -48,7 +48,7 @@ public class ListTest {
 	 * .thenThrow()
 	 */
 	@Test(expected = RuntimeException.class)
-	public void mockList_GetWithArgumentMatcherThrowException() {
+	public void mockList_GetWithArgumentMatcherThrowException() {	
 		List listMock = mock(List.class);
 		
 		when(listMock.get(anyInt())).thenThrow(new RuntimeException("An error occurred."));
