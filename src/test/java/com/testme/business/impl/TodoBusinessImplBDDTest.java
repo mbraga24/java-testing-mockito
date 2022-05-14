@@ -3,6 +3,7 @@ package com.testme.business.impl;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.mock;
@@ -87,7 +88,7 @@ public class TodoBusinessImplBDDTest {
 	 * Side Effects are the calls on the method of a mock.
 	 */
 	@Test
-	public void deleteTodosNotRelatedToSpring_usingBDD() {
+	public void deleteTodoFromTodos_usingBDD_usingVerify() {
 		// Give - setup
 		TodoService todoServiceMock = mock(TodoService.class);
 		List<String> todos = Arrays.asList("Learn Computer Science", 
@@ -110,6 +111,7 @@ public class TodoBusinessImplBDDTest {
 		todoBusinessImpl.deleteTodoFromTodos("Danyel");
 		
 		// Then - asserts
+		// ==> Verifying that a method is called n number of times: times(n)
 		verify(todoServiceMock, times(1)).deleteTodo("Learn Algorithms");
 		
 		// ==> Verifying that a method is called at least once: atLeastOnce()
@@ -120,6 +122,47 @@ public class TodoBusinessImplBDDTest {
 		
 		// ==> Verifying that a method is not called: never()
 		verify(todoServiceMock, never()).deleteTodo("Learn Spring Boot");
+	}
+	/*
+	 * Side Effects - Alternative syntax
+	 * 
+	 * The method below also checks methods' side effects using alternative syntax.
+	 */
+	@Test
+	public void deleteTodoFromTodos_usingBDD_usingThenShould() {
+		// Give - setup
+		TodoService todoServiceMock = mock(TodoService.class);
+		List<String> todos = Arrays.asList("Learn Computer Science", 
+										 "Learn Algorithms", 
+										 "Learn Spring Boot", 
+										 "Learn Data Structures",
+										 "Learn Spring MVC",
+										 "Learn Java",
+										 "Learn HTML",
+										 "Learn CSS",
+										 "Build 40 HTML/CSS projects",
+										 "Build 4 Spring Boot projects",
+										 "Build 4 Spring MVC projects");
+		
+		given(todoServiceMock.retrieveTodos("Danyel")).willReturn(todos);
+		
+		TodoBusinessImpl todoBusinessImpl = new TodoBusinessImpl(todoServiceMock);
+	
+		// When - actual method call
+		todoBusinessImpl.deleteTodoFromTodos("Danyel");
+		
+		// Then - asserts
+		// ==> Verifying that a method is called n number of times: times(n)
+		then(todoServiceMock).should(times(1)).deleteTodo("Learn Algorithms");
+		
+		// ==> Verifying that a method is called at least once: atLeastOnce()
+		then(todoServiceMock).should(atLeastOnce()).deleteTodo("Learn Algorithms");
+		
+		// ==> Verifying that a method is called at least n number of times: atLeast()
+		then(todoServiceMock).should(atLeast(1)).deleteTodo("Learn Algorithms");
+		
+		// ==> Verifying that a method is not called: never()
+		then(todoServiceMock).should(never()).deleteTodo("Learn Spring Boot");
 	}
 
 }
