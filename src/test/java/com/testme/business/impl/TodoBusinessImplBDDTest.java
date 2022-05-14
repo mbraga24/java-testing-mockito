@@ -199,7 +199,7 @@ public class TodoBusinessImplBDDTest {
 		TodoBusinessImpl todoBusinessImpl = new TodoBusinessImpl(todoServiceMock);
 	
 		// When - actual method call
-		todoBusinessImpl.deleteAllNonSpringTodos("Danyel", "Spring");
+		todoBusinessImpl.deleteAllTodosContainingKeywordFromTodos("Danyel", "Spring");
 		
 		// Then - asserts
 
@@ -209,5 +209,6 @@ public class TodoBusinessImplBDDTest {
 		// Capture the argument
 		assertThat(stringArgumentCaptor.getAllValues().size(), is(7)); // expects 7 
 	}
+	//	by Marlon Braga
 
 }
