@@ -48,11 +48,21 @@ public class TodoBusinessImpl {
 		return filteredTodos;
 	}
 	
-	public void deleteTodoFromTodos(String user) {
+	public void deleteTodoFromUserTodos(String user, String deleteTodo) {
 		List<String> todos = todoService.retrieveTodos(user);
 		
 		for (String todo:todos) {
-			if (!todo.contains("Spring")) {
+			if (todo.equals(deleteTodo)) {
+				todoService.deleteTodo(deleteTodo);
+			}
+		}
+	}
+	
+	public void deleteAllNonSpringTodos(String user, String keyWord) {
+		List<String> todos = todoService.retrieveTodos(user);
+		
+		for (String todo:todos) {
+			if (!todo.contains(keyWord)) {
 				todoService.deleteTodo(todo);
 			}
 		}

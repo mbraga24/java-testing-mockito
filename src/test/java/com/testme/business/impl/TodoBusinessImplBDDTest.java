@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 
 import com.testme.data.api.TodoService;
 
@@ -88,7 +89,7 @@ public class TodoBusinessImplBDDTest {
 	 * Side Effects are the calls on the method of a mock.
 	 */
 	@Test
-	public void deleteTodoFromTodos_usingBDD_usingVerify() {
+	public void deleteTodoFromUserTodos_usingBDD_usingVerify() {
 		// Give - setup
 		TodoService todoServiceMock = mock(TodoService.class);
 		List<String> todos = Arrays.asList("Learn Computer Science", 
@@ -108,28 +109,29 @@ public class TodoBusinessImplBDDTest {
 		TodoBusinessImpl todoBusinessImpl = new TodoBusinessImpl(todoServiceMock);
 	
 		// When - actual method call
-		todoBusinessImpl.deleteTodoFromTodos("Danyel");
+		todoBusinessImpl.deleteTodoFromUserTodos("Danyel", "Learn CSS");
 		
 		// Then - asserts
 		// ==> Verifying that a method is called n number of times: times(n)
-		verify(todoServiceMock, times(1)).deleteTodo("Learn Algorithms");
+		verify(todoServiceMock, times(1)).deleteTodo("Learn CSS");
 		
 		// ==> Verifying that a method is called at least once: atLeastOnce()
-		verify(todoServiceMock, atLeastOnce()).deleteTodo("Learn Algorithms");
+		verify(todoServiceMock, atLeastOnce()).deleteTodo("Learn CSS");
 		
 		// ==> Verifying that a method is called at least n number of times: atLeast()
-		verify(todoServiceMock, atLeast(1)).deleteTodo("Learn Algorithms");
+		verify(todoServiceMock, atLeast(1)).deleteTodo("Learn CSS");
 		
 		// ==> Verifying that a method is not called: never()
 		verify(todoServiceMock, never()).deleteTodo("Learn Spring Boot");
 	}
+	
 	/*
 	 * Side Effects - Alternative syntax
 	 * 
 	 * The method below also checks methods' side effects using alternative syntax.
 	 */
 	@Test
-	public void deleteTodoFromTodos_usingBDD_usingThenShould() {
+	public void deleteTodoFromUserTodos_usingBDD_usingThenShould() {
 		// Give - setup
 		TodoService todoServiceMock = mock(TodoService.class);
 		List<String> todos = Arrays.asList("Learn Computer Science", 
@@ -149,20 +151,63 @@ public class TodoBusinessImplBDDTest {
 		TodoBusinessImpl todoBusinessImpl = new TodoBusinessImpl(todoServiceMock);
 	
 		// When - actual method call
-		todoBusinessImpl.deleteTodoFromTodos("Danyel");
+		todoBusinessImpl.deleteTodoFromUserTodos("Danyel", "Learn CSS");
 		
 		// Then - asserts
 		// ==> Verifying that a method is called n number of times: times(n)
-		then(todoServiceMock).should(times(1)).deleteTodo("Learn Algorithms");
+		then(todoServiceMock).should(times(1)).deleteTodo("Learn CSS");
 		
 		// ==> Verifying that a method is called at least once: atLeastOnce()
-		then(todoServiceMock).should(atLeastOnce()).deleteTodo("Learn Algorithms");
+		then(todoServiceMock).should(atLeastOnce()).deleteTodo("Learn CSS");
 		
 		// ==> Verifying that a method is called at least n number of times: atLeast()
-		then(todoServiceMock).should(atLeast(1)).deleteTodo("Learn Algorithms");
+		then(todoServiceMock).should(atLeast(1)).deleteTodo("Learn CSS");
 		
 		// ==> Verifying that a method is not called: never()
 		then(todoServiceMock).should(never()).deleteTodo("Learn Spring Boot");
+	}
+	
+	/*
+	 * Argument Capture
+	 * 
+	 * Argument capture is useful when tester wants to check the values that are passed
+	 * to a mock method. This is especially useful if the argument is a complex object.
+	 * 
+	 */
+	@Test
+	public void deleteAllNonSpringTodos_usingBDD_argumentCaptor() {
+		
+		// Declare Argument Captor
+		ArgumentCaptor<String> stringArgumentCaptor = ArgumentCaptor.forClass(String.class);
+		
+		// Give - setup
+		TodoService todoServiceMock = mock(TodoService.class);
+		List<String> todos = Arrays.asList("Learn Computer Science", 
+										 "Learn Algorithms", 
+										 "Learn Spring Boot", 
+										 "Learn Data Structures",
+										 "Learn Spring MVC",
+										 "Learn Java",
+										 "Learn HTML",
+										 "Learn CSS",
+										 "Build 40 HTML/CSS projects",
+										 "Build 4 Spring Boot projects",
+										 "Build 4 Spring MVC projects");
+		
+		given(todoServiceMock.retrieveTodos("Danyel")).willReturn(todos);
+		
+		TodoBusinessImpl todoBusinessImpl = new TodoBusinessImpl(todoServiceMock);
+	
+		// When - actual method call
+		todoBusinessImpl.deleteAllNonSpringTodos("Danyel", "Spring");
+		
+		// Then - asserts
+
+		// Define Argument Captor on specific method call 
+		then(todoServiceMock).should(times(7)).deleteTodo(stringArgumentCaptor.capture()); // wants 7
+		
+		// Capture the argument
+		assertThat(stringArgumentCaptor.getAllValues().size(), is(7)); // expects 7 
 	}
 
 }
