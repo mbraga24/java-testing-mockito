@@ -58,7 +58,7 @@ public class TodoBusinessImpl {
 		}
 	}
 	
-	public void deleteAllNonSpringTodos(String user, String keyWord) {
+	public void deleteAllTodosContainingKeywordFromTodos(String user, String keyWord) {
 		List<String> todos = todoService.retrieveTodos(user);
 		
 		for (String todo:todos) {
