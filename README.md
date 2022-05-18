@@ -7,3 +7,5 @@ Mockito is an open source testing framework for Java released under the MIT Lice
 - https://github.com/mockito/mockito/wiki/Mockito-And-Private-Methods
 - https://github.com/mockito/mockito/wiki/FAQ
 - https://github.com/mockito/mockito/wiki/Mockito-vs-EasyMock
+- https://medium.com/pragmatic-programmers/unit-tests-are-first-fast-isolated-repeatable-self-verifying-and-timely-a83e8070698e
+- https://github.com/mockito/mockito/wiki/How-to-write-good-tests
